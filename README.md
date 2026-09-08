@@ -41,13 +41,17 @@ pip install -r requirements.txt
 python gerar_dataset.py
 ```
 
+Para acompanhar a atividade pergunta a pergunta, abra o notebook `atividade_separatrizes_pib_rn.ipynb` e execute todas as células.
+
+Para gerar o dataset em notebook (em vez do terminal), abra `gerar_dataset.ipynb` e execute todas as células.
+
 No Linux ou macOS, ative o ambiente com:
 
 ```bash
 source .venv/bin/activate
 ```
 
-O comando `python gerar_dataset.py` refaz toda a coleta, o cálculo do percentil 10 e a exportação dos arquivos em `data/`.
+A pasta `data/` **não vai para o GitHub**: ela é criada na sua máquina quando você roda `python gerar_dataset.py`.
 
 ## 3. Estrutura do repositório
 
@@ -56,20 +60,23 @@ API_IBGE/
 ├── README.md                 # este arquivo
 ├── requirements.txt          # bibliotecas Python
 ├── .gitignore                # o que o Git não deve versionar
-├── gerar_dataset.py          # ponto de entrada da coleta
-├── _criar_notebook.py        # gera o notebook da atividade (auxiliar)
+├── gerar_dataset.py          # ponto de entrada da coleta (terminal)
+├── gerar_dataset.ipynb       # a mesma coleta, em notebook passo a passo
+├── atividade_separatrizes_pib_rn.ipynb  # notebook da atividade (perguntas)
 ├── src/
 │   ├── __init__.py           # torna src um pacote Python
 │   ├── ibge_client.py        # cliente HTTP das APIs do IBGE
 │   ├── pipeline.py           # junta os dados, calcula o P10 e exporta
 │   ├── api.py                # API local (FastAPI), opcional
 │   └── relatorio.py          # gerador de PDF/XLSX formatado (opcional)
-└── data/                     # arquivos gerados pela coleta
+└── data/                     # criada na sua máquina ao rodar gerar_dataset.py
     ├── municipios_rn.csv
     ├── municipios_rn.xlsx
     ├── grupo_p10_menores_pib.csv
     └── resumo_separatriz.json
 ```
+
+Os arquivos de `data/` ficam no `.gitignore`. Quem clona o repositório baixa o código e o notebook, e gera os dados localmente com `python gerar_dataset.py`.
 
 ### Explicação de cada arquivo
 
@@ -80,8 +87,9 @@ API_IBGE/
 | `README.md` | Documentação do GitHub: objetivo, como coletar os dados, como reproduzir o projeto e o significado de cada arquivo. |
 | `requirements.txt` | Lista das bibliotecas Python necessárias (`pandas`, `numpy`, `openpyxl`, `fastapi`, `uvicorn`). Instale com `pip install -r requirements.txt`. |
 | `.gitignore` | Impede que o Git envie lixo ao repositório (pasta `.venv`, cache `__pycache__`, arquivos temporários). |
-| `gerar_dataset.py` | **Arquivo principal para rodar.** Baixa os dados do IBGE, calcula o percentil 10, monta o grupo dos menores PIBs e grava CSV/XLSX em `data/`. |
-| `_criar_notebook.py` | Script auxiliar que monta o notebook Jupyter da atividade (células de texto + código). Não faz parte da coleta dos dados. |
+| `gerar_dataset.py` | **Arquivo principal para coletar os dados no terminal.** Baixa os indicadores do IBGE, calcula o percentil 10, monta o grupo dos menores PIBs e grava CSV/XLSX em `data/`. |
+| `gerar_dataset.ipynb` | **A mesma coleta, em notebook.** Explica cada etapa (municípios, PIB, Censo, percentil 10 e exportação) com texto e código comentado. Também funciona no Google Colab. |
+| `atividade_separatrizes_pib_rn.ipynb` | **Notebook da atividade.** Responde cada pergunta com células de texto e código, usando o dataset já gerado. |
 
 #### Pasta `src/` (código)
 
@@ -93,7 +101,9 @@ API_IBGE/
 | `src/api.py` | API local opcional (FastAPI). Serve o dataset já gerado em rotas como `/pib-per-capita` e `/grupo-p10`. Não substitui o IBGE. |
 | `src/relatorio.py` | Gera um PDF da atividade e um Excel com nomes de colunas em português. É opcional e pede bibliotecas extras (`fpdf2`, `matplotlib`). |
 
-#### Pasta `data/` (resultados da coleta)
+#### Pasta `data/` (resultados da coleta — gerados localmente, não versionados)
+
+Depois de `python gerar_dataset.py`, aparecem:
 
 | Arquivo | Para que serve |
 | --- | --- |

@@ -1,11 +1,43 @@
+# Ambiente e cache do Python
 __pycache__/
 *.py[cod]
+*$py.class
 .venv/
 venv/
 .env
+.python-version
+.mypy_cache/
+.ruff_cache/
+.tox/
+
+# IDEs, Cursor e sistema
 .idea/
 .vscode/
-*.log
-_tmp_*.py
+.cursor/
 .DS_Store
 Thumbs.db
+desktop.ini
+*.log
+
+# Scripts temporários (não entram no fluxo de execução)
+_tmp_*.py
+
+# Resultados gerados — o usuário cria com: python gerar_dataset.py
+data/
+*.csv
+*.xlsx
+*.xls
+*.json
+*.pdf
+
+# Checkpoints do Jupyter (o notebook da atividade é versionado)
+.ipynb_checkpoints/
+
+# Pacotes e testes
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
