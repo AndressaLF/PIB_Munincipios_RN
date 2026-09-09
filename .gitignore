@@ -19,10 +19,11 @@ Thumbs.db
 desktop.ini
 *.log
 
-# Scripts temporários (não entram no fluxo de execução)
+# Scripts temporários de geração
 _tmp_*.py
+_montar_*.py
 
-# Resultados gerados — o usuário cria com: python gerar_dataset.py
+# Resultados gerados pelo notebook (Excel para o Google Planilhas)
 data/
 *.csv
 *.xlsx
